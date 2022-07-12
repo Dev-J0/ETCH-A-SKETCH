@@ -1,9 +1,7 @@
 const buttons = document.querySelectorAll("button");
 const screen = document.querySelector(".screen");
-
 let pixel = ''; 
 let gridsize = 50;
-
 const drawGrid = (screenSize) => {
   for(i = 0; i < screenSize ** 2; i++) {
     pixel = document.createElement('div')
@@ -19,7 +17,7 @@ drawGrid(gridsize);
 
 const clear = (request) => {
   if(request === 'resize'){
-    gridsize = prompt('please enter a new grid size of not more than 100', 50);
+    gridsize = prompt('maximum of the gridsize is 100', 50);
     if(gridsize > 100 || gridsize === null){
     gridsize = 100;
   }
@@ -64,8 +62,6 @@ const shading = (clr) => {
   }
   return color + '1)';
 }
-
-
 const active = () => {
   let pixels = document.querySelectorAll(".pixel");
   pixels.forEach(pxl => { 
