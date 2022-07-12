@@ -1,33 +1,87 @@
-function populateBoard(size) {
-  let board = document.querySelector(".board")
-  let squares = board.querySelectorAll('.div');
-  squares.forEach((div)=> div.remove());
-  board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-// this will make 16 columns, each column will have a width of 1 sixth of the width of the container
-  board.style.gridTemplateRows =  `repeat(${size}, 1fr)`;
+const buttons = document.querySelectorAll("button");
+const screen = document.querySelector(".screen");
 
+let pixel = ''; 
+let gridsize = 50;
 
-  let amount = size * size
-  for(let i = 0; i < amount, i++;) {
-    let square = document.createElement("div");
-    square.addEventListener('mouseover', colorSquare);
-    square.style.backgroundColor = 'white';  
-    board.insertAdjacentElement('beforeend', square);
-    document.body.appendChild(div);
-    }
-// 256 is 16 * 16
-}
-
-populateBoard(16);
-
-function changeSize(input) {
-  if(input >= 2 && input <= 100 ) {
-    populateBoard(input)
-  } else {
-  console.log('error');
+const drawGrid = (screenSize) => {
+  for(i = 0; i < screenSize ** 2; i++) {
+    pixel = document.createElement('div')
+    pixel.classList.add("pixel");
+    pixel.style.backgroundColor = 'white';
+    screen.appendChild(pixel);
   }
+  screen.style.gridTemplateColumns =  `repeat(${screenSize}, auto)`;
+  screen.style.gridTemplateRows =  `repeat(${screenSize}, auto)`;
 }
 
-function colorSquare() {
-  this.style.backgroundColor = 'black'; 
+drawGrid(gridsize);
+
+const clear = (request) => {
+  if(request === 'resize'){
+    gridsize = prompt('please enter a new grid size of not more than 100', 50);
+    if(gridsize > 100 || gridsize === null){
+    gridsize = 100;
+  }
+  }
+  screen.innerHTML = '';
+  drawGrid(gridsize);
+  active();
 }
+
+let currentMode = 'black';
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    if(button.id === 'resize' || button.id === 'clear'){
+      clear(button.id);
+    }
+    else{
+      currentMode = button.id;
+      clear(button.id);
+    }
+  });
+});
+
+const randomColor = () => {
+  let color = 'rgba(';
+  for(let i = 0;i< 3;i++){
+    color += Math.floor(Math.random() * 255) + ',';
+  }
+  return color + '1)';
+}
+
+const shading = (clr) => {
+  let color = 'rgba(';
+  clr = parseInt(clr.substr(4, clr.indexOf(',') - 4));
+  if(clr === 255){
+    clr = 100;
+  }
+  else if(clr > 0){
+    clr -= 5;
+  }
+  for(let i = 0;i< 3;i++){
+    color += clr + ',';
+  }
+  return color + '1)';
+}
+
+
+const active = () => {
+  let pixels = document.querySelectorAll(".pixel");
+  pixels.forEach(pxl => { 
+    pxl.addEventListener('mouseover', (e) => {
+      let crntClr = getComputedStyle(pxl, null).getPropertyValue('background-color');
+      switch(currentMode){
+        case 'black':
+          e.target.style.backgroundColor = 'rgba(0,0,0)';
+          break;
+        case 'colors':
+          e.target.style.backgroundColor = randomColor();
+          break;
+        case 'shading':
+          e.target.style.backgroundColor = shading(crntClr);
+      }
+    });
+  });
+}
+active();
