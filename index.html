@@ -2,30 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>ETCH-A-SKETCH</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Etch a Sketch</title>
 </head>
 <body>
     <div class="container">
-        <div class="sketch">
-            <h1>Sketch Pad</h1>
-        </div>
-    <div class="content">
-        <div class="board"></div>
+        <h1>Etch A Sketch</h1>
         <div class="buttons">
-            <button>Black</button>
-            <button>White</button>
-            <button>Random</button>
-            <button>Reset</button>
+            <button id="clear" type="button">Reset</button>
+            <button id="black" type="button">Black</button>
+            <button id="colors" type="button">Colors</button>
+            <button id="shading" type="button">Shading</button>
+            <button id="resize" type="button">Resize</button>
+        </div>
+        <div class="screen">
         </div>
     </div>
-       <input type="text" placeholder="Size of the board" value="16" onchange="changeSize(this.value)"
-    />
-       <button>Set size</button>
-    </div>
-    
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
