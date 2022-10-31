@@ -1,8 +1,7 @@
 # ETCH-A-Sketch
 
 
-https://d0bsidian.github.io/ETCH-A-SKETCH/
-
+https://dev-j0.github.io/ETCH-A-SKETCH/
 
 
 
